@@ -748,6 +748,7 @@ declare namespace BluetoothlePlugin {
     interface ScanStatus extends DeviceInfo {
         /** signal strength */
         rssi: number,
+        advertisementManu: string,
         /**
          * advertisement data in encoded string of bytes, use bluetoothle.encodedStringToBytes() (Android)
          * advertisement hash with the keys (iOS)
