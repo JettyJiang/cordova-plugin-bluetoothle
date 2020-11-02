@@ -106,6 +106,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
   private final String keyMatchNum = "matchNum";
   private final String keyCallbackType = "callbackType";
   private final String keyAdvertisement = "advertisement";
+  private final String keyAdvertisementManu = "advertisementManu";
   private final String keyUuid = "uuid";
   private final String keyService = "service";
   private final String keyServices = "services";
@@ -2993,6 +2994,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
           }
           addProperty(returnObj, keyRssi, result.getRssi());
           addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getBytes());
+          addPropertyBytes(returnObj, keyAdvertisementManu, result.getScanRecord().getManufacturerSpecificData("0x004c"));
           addProperty(returnObj, keyStatus, statusScanResult);
 
           PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, returnObj);
