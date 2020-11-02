@@ -2998,7 +2998,9 @@ public class BluetoothLePlugin extends CordovaPlugin {
           byte[] bytes = null;
           bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
           if( bytes != null){
-            addPropertyBytes(returnObj, keyAdvertisementManu, result.getScanRecord().getManufacturerSpecificData(0x004c));
+            // addPropertyBytes(returnObj, keyAdvertisementManu, result.getScanRecord().getManufacturerSpecificData(0x004c));
+            String str = new String(bytes);
+            addProperty(returnObj, keyAdvertisementManu, str);
           }
           addProperty(returnObj, keyStatus, statusScanResult);
 
