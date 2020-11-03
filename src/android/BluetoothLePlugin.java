@@ -52,6 +52,8 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import java.nio.charset.StandardCharsets;
+
 @SuppressWarnings("unchecked")
 
 public class BluetoothLePlugin extends CordovaPlugin {
