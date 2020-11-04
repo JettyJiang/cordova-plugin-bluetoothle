@@ -2997,20 +2997,21 @@ public class BluetoothLePlugin extends CordovaPlugin {
           addProperty(returnObj, keyRssi, result.getRssi());
           addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getBytes());
           
-          byte[] serviceBytes = null;
-          ParcelUuid parcelUuid = ParcelUuid.fromString("0x0716");
-          serviceBytes = result.getScanRecord().getServiceData(parcelUuid);
-          if(serviceBytes != null){
-            addPropertyBytes(returnObj, keyUuid, serviceBytes);
-          }else{
-            // addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getManufacturerSpecificData(0x004c));
-            byte[] bytes = null;
-            bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
-            if( bytes != null){
-              addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
-              // String str = new String(bytes, StandardCharsets.UTF_8);
-              // addProperty(returnObj, keyAdvertisementManu, str);
+          List<ParcelUuid> uuids = result.getScanRecord().getServiceUuids();
+          String uuidsString = "";
+          if (uuids != null) {
+            for (ParcelUuid uuid : uuids) {
+              uuidsString += uuids.toString();
             }
+          }
+          addProperty(returnObj, keyUuid, uuidsString);
+          // addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getManufacturerSpecificData(0x004c));
+          byte[] bytes = null;
+          bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
+          if( bytes != null){
+            addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
+            // String str = new String(bytes, StandardCharsets.UTF_8);
+            // addProperty(returnObj, keyAdvertisementManu, str);
           }
           addProperty(returnObj, keyStatus, statusScanResult);
 
