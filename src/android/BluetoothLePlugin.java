@@ -3004,6 +3004,9 @@ public class BluetoothLePlugin extends CordovaPlugin {
             // String str = new String(bytes, StandardCharsets.UTF_8);
             // addProperty(returnObj, keyAdvertisementManu, str);
           }
+          List<ParcelUuid> uuids = result.getScanRecord().getServiceUuids();
+          String uuidsSeparated = String.join(",", uuids);
+          addProperty(returnObj, keyUuid, uuidsSeparated);
           addProperty(returnObj, keyStatus, statusScanResult);
 
           PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, returnObj);
