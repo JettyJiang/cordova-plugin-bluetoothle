@@ -3016,7 +3016,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
           }
           addProperty(returnObj, keyStatus, statusScanResult);
 
-          String txPowerLevelScan = result.getScanRecord().getTxPowerLevel();
+          int txPowerLevelScan = result.getScanRecord().getTxPowerLevel();
           addProperty(returnObj, keyTxPowerLevel, txPowerLevelScan);
 
           PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, returnObj);
