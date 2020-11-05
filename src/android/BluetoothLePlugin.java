@@ -132,6 +132,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
   private final String keyDiscoveredState = "discoveredState";
   private final String keyConnectionPriority = "connectionPriority";
   private final String keyMtu = "mtu";
+  private final String keyTxPowerLevel = "txPowerLevel";
 
   //Write Types
   private final String writeTypeNoResponse = "noResponse";
@@ -3014,6 +3015,9 @@ public class BluetoothLePlugin extends CordovaPlugin {
             // addProperty(returnObj, keyAdvertisementManu, str);
           }
           addProperty(returnObj, keyStatus, statusScanResult);
+
+          String txPowerLevelScan = result.getScanRecord().getTxPowerLevel();
+          addProperty(returnObj, keyTxPowerLevel, txPowerLevelScan);
 
           PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, returnObj);
           pluginResult.setKeepCallback(true);
