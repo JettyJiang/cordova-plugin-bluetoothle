@@ -1142,6 +1142,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
       for (UUID uuid : uuids) {
         ScanFilter.Builder builder = new ScanFilter.Builder();
         builder.setServiceUuid(new ParcelUuid(uuid));
+        builder.setManufacturerData(0x004c, new byte[] {});
         scanFilter.add(builder.build());
       }
 
