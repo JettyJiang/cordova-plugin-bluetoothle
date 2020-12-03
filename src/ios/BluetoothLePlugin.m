@@ -142,6 +142,8 @@ NSString *const operationSubscribe = @"subscribe";
 NSString *const operationUnsubscribe = @"unsubscribe";
 NSString *const operationWrite = @"write";
 
+#define UN_LOCK_SCREEN_NOTIFY @"UnLockScreenNotify"
+
 @implementation BluetoothLePlugin
 
 //Peripheral Manager Functions
