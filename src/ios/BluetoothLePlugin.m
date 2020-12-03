@@ -66,6 +66,7 @@ NSString *const statusReadDescriptor = @"readDescriptor";
 NSString *const statusWrittenDescriptor = @"writtenDescriptor";
 NSString *const statusRssi = @"rssi";
 NSString *const statusDiscovered = @"discovered";
+NSString *const statusLockingScreen = @"lockingScreen";
 
 //Error Types
 NSString *const errorInitialize = @"initialize";
@@ -2065,6 +2066,18 @@ NSString *const operationWrite = @"write";
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
   //Needed to support background mode
+}
+
+
+- (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LOCK_SCREEN_NOTIFY object:nil];
+    NSMutableDictionary* returnObj = [NSMutableDictionary dictionary];
+    [returnObj setValue:statusLockingScreen forKey:keyStatus];
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
+    [pluginResult setKeepCallbackAsBool:true];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:scanCallback];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
