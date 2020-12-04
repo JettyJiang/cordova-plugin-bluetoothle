@@ -142,8 +142,6 @@ NSString *const operationSubscribe = @"subscribe";
 NSString *const operationUnsubscribe = @"unsubscribe";
 NSString *const operationWrite = @"write";
 
-#define LOCK_SCREEN_NOTIFY @"LockScreenNotify"
-
 @implementation BluetoothLePlugin
 
 //Peripheral Manager Functions
@@ -2068,18 +2066,6 @@ NSString *const operationWrite = @"write";
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
   //Needed to support background mode
-}
-
-
-- (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:LOCK_SCREEN_NOTIFY object:nil];
-    NSMutableDictionary* returnObj = [NSMutableDictionary dictionary];
-    [returnObj setValue:statusLockingScreen forKey:keyStatus];
-
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
-    [pluginResult setKeepCallbackAsBool:true];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:scanCallback];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
