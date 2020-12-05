@@ -23,6 +23,8 @@
   NSInteger writeQChunkSize;
   NSData *writeQData;
   CBCharacteristic *currentWriteCharacteristic;
+
+  @property (atomic, strong) dispatch_queue_t bluetoothQueue;
 }
 
 - (void)initialize:(CDVInvokedUrlCommand *)command;

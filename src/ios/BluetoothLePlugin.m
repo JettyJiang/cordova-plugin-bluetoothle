@@ -142,8 +142,6 @@ NSString *const operationSubscribe = @"subscribe";
 NSString *const operationUnsubscribe = @"unsubscribe";
 NSString *const operationWrite = @"write";
 
-@property (atomic, strong) dispatch_queue_t bluetoothQueue;
-
 @implementation BluetoothLePlugin
 
 //Peripheral Manager Functions
