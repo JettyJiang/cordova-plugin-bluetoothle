@@ -718,12 +718,12 @@ NSString *const operationWrite = @"write";
   }
 
   //add by Jetty
-  self.bluetoothQueue = dispatch_queue_create("com.onset.corebluetooth.queue", DISPATCH_QUEUE_SERIAL);
+  bluetoothQueue = dispatch_queue_create("com.onset.corebluetooth.queue", DISPATCH_QUEUE_SERIAL);
 
   //Initialize central manager
   //centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
   //edit by Jetty
-  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.bluetoothQueue options:options];
+  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:bluetoothQueue options:options];
 
   //Create dictionary to hold connections and all their callbacks
   connections = [NSMutableDictionary dictionary];
@@ -782,7 +782,7 @@ NSString *const operationWrite = @"write";
   //Start the scan
   //[centralManager scanForPeripheralsWithServices:serviceUuids options:@{ CBCentralManagerScanOptionAllowDuplicatesKey:allowDuplicates }];
   //Edit by Jetty
-  dispatch_async(self.bluetoothQueue, ^{
+  dispatch_async(bluetoothQueue, ^{
     [centralManager scanForPeripheralsWithServices:serviceUuids options:@{ CBCentralManagerScanOptionAllowDuplicatesKey:allowDuplicates }];
   });
 }
@@ -808,7 +808,7 @@ NSString *const operationWrite = @"write";
   //Stop the scan
   //[centralManager stopScan];
   //Edit by Jetty
-  dispatch_async(self.bluetoothQueue, ^{
+  dispatch_async(bluetoothQueue, ^{
    [centralManager stopScan];
   });
 
