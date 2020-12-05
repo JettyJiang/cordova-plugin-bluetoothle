@@ -142,6 +142,8 @@ NSString *const operationSubscribe = @"subscribe";
 NSString *const operationUnsubscribe = @"unsubscribe";
 NSString *const operationWrite = @"write";
 
+@property (atomic, strong) dispatch_queue_t bluetoothQueue;
+
 @implementation BluetoothLePlugin
 
 //Peripheral Manager Functions
@@ -717,8 +719,13 @@ NSString *const operationWrite = @"write";
     [options setValue:request forKey:CBCentralManagerOptionShowPowerAlertKey];
   }
 
+  //add by Jetty
+  bluetoothQueue = dispatch_queue_create("com.onset.corebluetooth.queue", DISPATCH_QUEUE_SERIAL);
+
   //Initialize central manager
-  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
+  //centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
+  //edit by Jetty
+  centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:bluetoothQueue options:options];
 
   //Create dictionary to hold connections and all their callbacks
   connections = [NSMutableDictionary dictionary];
@@ -775,7 +782,11 @@ NSString *const operationWrite = @"write";
   [self.commandDelegate sendPluginResult:pluginResult callbackId:scanCallback];
 
   //Start the scan
-  [centralManager scanForPeripheralsWithServices:serviceUuids options:@{ CBCentralManagerScanOptionAllowDuplicatesKey:allowDuplicates }];
+  //[centralManager scanForPeripheralsWithServices:serviceUuids options:@{ CBCentralManagerScanOptionAllowDuplicatesKey:allowDuplicates }];
+  //Edit by Jetty
+  dispatch_async(bluetoothQueue, ^{
+    [centralManager scanForPeripheralsWithServices:serviceUuids options::@{ CBCentralManagerScanOptionAllowDuplicatesKey:allowDuplicates }];
+  });
 }
 
 - (void)stopScan:(CDVInvokedUrlCommand *)command {
@@ -797,7 +808,11 @@ NSString *const operationWrite = @"write";
   scanCallback = nil;
 
   //Stop the scan
-  [centralManager stopScan];
+  //[centralManager stopScan];
+  //Edit by Jetty
+  dispatch_async(bluetoothQueue, ^{
+   [centralManager stopScan];
+  });
 
   //Return a callback
   NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusScanStopped, keyStatus, nil];
