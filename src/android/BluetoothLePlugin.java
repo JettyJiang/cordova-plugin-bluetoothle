@@ -3010,13 +3010,18 @@ public class BluetoothLePlugin extends CordovaPlugin {
           }
           addProperty(returnObj, keyUuid, uuidsString);
           // addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getManufacturerSpecificData(0x004c));
-          // byte[] bytes = null;
-          // bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
-          // if( bytes != null){
-          //   addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
-          //   // String str = new String(bytes, StandardCharsets.UTF_8);
-          //   // addProperty(returnObj, keyAdvertisementManu, str);
-          // }
+          byte[] bytes = null;
+          try {
+            bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
+            if( bytes != null){
+              addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
+              // String str = new String(bytes, StandardCharsets.UTF_8);
+              // addProperty(returnObj, keyAdvertisementManu, str);
+            }
+          } catch (Exception e) {
+            //TODO: handle exception
+          }
+          
           addProperty(returnObj, keyStatus, statusScanResult);
 
           int txPowerLevelScan = result.getScanRecord().getTxPowerLevel();
