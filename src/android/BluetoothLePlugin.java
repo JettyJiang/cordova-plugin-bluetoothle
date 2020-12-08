@@ -3013,11 +3013,11 @@ public class BluetoothLePlugin extends CordovaPlugin {
           byte[] bytes = null;
           try {
             bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
-            if( bytes != null){
+            // if( bytes != null){
               addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
               // String str = new String(bytes, StandardCharsets.UTF_8);
               // addProperty(returnObj, keyAdvertisementManu, str);
-            }
+            // }
           } catch (Exception e) {
             //TODO: handle exception
           }
