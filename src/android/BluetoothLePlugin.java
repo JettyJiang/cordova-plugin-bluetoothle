@@ -3012,7 +3012,7 @@ public class BluetoothLePlugin extends CordovaPlugin {
           // addPropertyBytes(returnObj, keyAdvertisement, result.getScanRecord().getManufacturerSpecificData(0x004c));
           byte[] bytes = null;
           bytes = result.getScanRecord().getManufacturerSpecificData(0x004c);
-          if( bytes != null){
+          if( bytes != null ){
             addPropertyBytes(returnObj, keyAdvertisementManu, bytes);
             // String str = new String(bytes, StandardCharsets.UTF_8);
             // addProperty(returnObj, keyAdvertisementManu, str);
